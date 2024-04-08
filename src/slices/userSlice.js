@@ -1,11 +1,11 @@
 import { errorToast } from "@/lib/helper"
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
-const base_url = "http://localhost:5500/api/v1"
+const base_url = "https://companymlmbackend.metablocktechnologies.org/api/v1"
 
 
 export const login = createAsyncThunk("login", async ({ email, password }, { rejectWithValue }) => {
-    let url = `http://localhost:5500/api/v1/login`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/login`
     const config = {
         headers: {
             "Content-Type": "application/json"         //bina config ke cookie nhi set honi dhyan rakhna
@@ -29,7 +29,7 @@ export const register = createAsyncThunk("register", async ({ name, email, passw
             "Content-Type": "application/multipart/form-data"
         }
     }
-    let url = `http://localhost:5500/api/v1/register`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/register`
     try {
         const response = await axios.post(url, { name, email, referBy: referralId, password, mobileNo, userType }, config); // replace with your API endpoint and data
         console.log(response)
@@ -45,7 +45,7 @@ export const verifyUserSendOtp = createAsyncThunk("verifyUserSendOtp", async ({ 
             "Content-Type": "application/json"
         }
     }
-    let url = `http://localhost:5500/api/v1/verify-user-send-otp`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/verify-user-send-otp`
     try {
         const response = await axios.post(url, { email }, config); // replace with your API endpoint and data
         console.log(response)
@@ -62,7 +62,7 @@ export const verifyEmail = createAsyncThunk("verifyEmail", async ({ token }) => 
             "Content-Type": "application/json"
         }
     }
-    let url = `http://localhost:5500/api/v1/verify-user-using-otp/:token`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/verify-user-using-otp/:token`
     try {
         const response = await axios.put(url, config); // replace with your API endpoint and data
         console.log(response)
@@ -74,7 +74,7 @@ export const verifyEmail = createAsyncThunk("verifyEmail", async ({ token }) => 
 })
 
 export const logout = createAsyncThunk("logout", async (_, { rejectWithValue }) => {
-    let url = `http://localhost:5500/api/v1/logout`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/logout`
 
     try {
         await axios.post(url, {}, { withCredentials: true });
@@ -85,7 +85,7 @@ export const logout = createAsyncThunk("logout", async (_, { rejectWithValue }) 
 
 })
 export const loadUser = createAsyncThunk("loadUser", async () => {
-    let url = `http://localhost:5500/api/v1/me`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/me`
     const config = {
         headers: {
             "Content-Type": "application/json"
@@ -103,7 +103,7 @@ export const loadUser = createAsyncThunk("loadUser", async () => {
 
 export const updateProfile = createAsyncThunk("updateProfile", async ({ name, mobileNo, city, state, address, avatar, socialLinks }) => {
     console.log(socialLinks)
-    let url = `http://localhost:5500/api/v1/me/Update`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/me/Update`
     const config = { headers: { "Content-Type": "application/multipart/form-data" }, withCredentials: true };
     try {
         const response = await axios.put(url, { name, mobileNo, city, state, address, avatar, socialLinks }, config)
@@ -113,7 +113,7 @@ export const updateProfile = createAsyncThunk("updateProfile", async ({ name, mo
     }
 })
 export const getMyAllReferrals = createAsyncThunk("myReferrals", async () => {
-    let url = `http://localhost:5500/api/v1/users/my-referrals`
+    let url = `https://companymlmbackend.metablocktechnologies.org/api/v1/users/my-referrals`
     const config = {
         headers: {
             "Content-Type": "application/json"
