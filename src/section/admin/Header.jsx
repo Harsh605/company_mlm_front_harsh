@@ -37,7 +37,7 @@ const Header = ({ setSidebarOpen, sidebarOpen, userData }) => {
             <span className="sr-only">Metablock Logo</span>
             <img
               className="h-[30px] w-auto md:h-[52px]"
-              src={settings?.site_logo || "/images/logo.png"}
+              src={settings?.site_logo || "/images/logo-white.png"}
               alt="Company Name"
             />
           </Link>

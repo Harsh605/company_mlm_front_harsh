@@ -143,12 +143,12 @@ export function Login() {
                   )}
                 />
               </div>
-              <Link
-                className="inline-block align-baseline text-sm text-gray-600 hover:text-gray-800"
+              {/* <Link
+                className="inline-block align-baseline text-sm text-gray-400 hover:text-gray-800"
                 to="/forgot"
               >
                 Forgot Password?
-              </Link>
+              </Link> */}
             </CardContent>
             <CardFooter className="flex flex-col gap-2">
               <Button type="submit" className="w-full">
