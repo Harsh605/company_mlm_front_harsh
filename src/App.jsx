@@ -26,7 +26,7 @@ import EmailAuth from "./section/auth/EmailAuth";
 
 function App() {
   const dispatch = useDispatch();
-  const { error, isLoading, userData, isAuthenticated } = useSelector(
+  const { error, isLoading, userData, isAuthenticated,isProfileUpdated } = useSelector(
     (state) => state.userCustom
   );
 

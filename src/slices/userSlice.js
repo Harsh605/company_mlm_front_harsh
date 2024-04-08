@@ -168,7 +168,8 @@ export const userSlice = createSlice({
         allUsers: [],
         isEmailSent: false,
         myReferrals: [],
-        isError: false
+        isError: false,
+        isProfileUpdated: false
     },
     extraReducers: (builder) => {
         builder
@@ -288,6 +289,26 @@ export const userSlice = createSlice({
                 state.isError = true
                 state.isLoading = false
                 state.isSuccess = false
+
+            })
+            .addCase(updateProfile.pending, (state, action) => {
+                state.isLoading = true
+                state.isSuccess = false
+                state.isError = false
+                state.isProfileUpdated = false
+            })
+            .addCase(updateProfile.fulfilled, (state, action) => {
+                state.isLoading = false
+                state.isSuccess = true
+                state.isError = false
+                state.isProfileUpdated = true
+
+            })
+            .addCase(updateProfile.rejected, (state, action) => {
+                state.isError = true
+                state.isLoading = false
+                state.isSuccess = false
+                state.isProfileUpdated = false
 
             })
 

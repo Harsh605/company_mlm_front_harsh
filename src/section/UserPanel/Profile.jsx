@@ -31,7 +31,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { updateProfile } from "@/slices/userSlice";
+import { loadUser, updateProfile } from "@/slices/userSlice";
 
 export default function Profile({ userData }) {
   const { t } = useTranslation();
@@ -58,25 +58,22 @@ export default function Profile({ userData }) {
 
   const formSchema = z.object({
     name: z.string().optional(),
-    mobileNo: z.string().optional(),
+    mobileNo: z.number().default(userData?.mobileNo).optional(),
     state: z.string().optional(),
     city: z.string().optional(),
     address: z.string().optional(),
-    avatar: z.string().optional(),
+    // avatar: z.string().optional(),
     userId: z.number().optional(),
     referralId: z.string().optional(),
     referralName: z.string().optional(),
     joiningDate: z.string().optional(),
-    socialLinks: z
-      .object({
-        linkedin: z.string().optional(),
-        facebook: z.string().optional(),
-        instagram: z.string().optional(),
-        whatsapp: z.string().optional(),
-        telegram: z.string().optional(),
-        twitter: z.string().optional(),
-      })
-      .optional(),
+
+    linkedin: z.string().optional(),
+    facebook: z.string().optional(),
+    instagram: z.string().optional(),
+    whatsapp: z.string().optional(),
+    telegram: z.string().optional(),
+    twitter: z.string().optional(),
   });
 
   const form = useForm({
@@ -88,26 +85,20 @@ export default function Profile({ userData }) {
       city: userData?.city || "",
       state: userData?.state || "",
       address: userData?.address || "",
-      avatar: userData?.avatar || "",
+      // avatar: userData?.avatar || "",
       userId: userData?.userId || "",
       referralId: userData?.parentId || "",
       referralName: userData?.parentName || "",
       joiningDate: (userData?.createdAt).slice(0, 10) || "",
+      linkedin: userData?.socialLinks?.linkedin || "",
+      facebook: userData?.socialLinks?.facebook || "",
+      instagram: userData?.socialLinks?.instagram || "",
+      whatsapp: userData?.socialLinks?.whatsapp || "",
+      telegram: userData?.socialLinks?.telegram || "",
+      twitter: userData?.socialLinks?.twitter || "",
     },
   });
-  const socialForm = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      socialLinks: {
-        linkedin: userData?.socialLinks?.linkedin || "",
-        facebook: userData?.socialLinks?.facebook || "",
-        instagram: userData?.socialLinks?.instagram || "",
-        whatsapp: userData?.socialLinks?.whatsapp || "",
-        telegram: userData?.socialLinks?.telegram || "",
-        twitter: userData?.socialLinks?.twitter || "",
-      },
-    },
-  });
+
   const onGeneralInformationSubmit = (value) => {
     console.log(value);
     dispatch(
@@ -118,11 +109,19 @@ export default function Profile({ userData }) {
         city: value.city,
         state: value.state,
         address: value.address,
+        socialLinks: {
+          linkedin: value.linkedin,
+          facebook: value.facebook,
+          instagram: value.instagram,
+          whatsapp: value.whatsapp,
+          telegram: value.telegram,
+          twitter: value.twitter,
+        },
       })
-    );
+    ).then(() => dispatch(loadUser()));
   };
   const onSocialInformationSubmit = (value) => {
-    console.log("value");
+    console.log(value);
     const socialLinks = {
       linkedin: value.linkedin,
       facebook: value.facebook,
@@ -592,18 +591,16 @@ export default function Profile({ userData }) {
                       Enter your Social information for better understanding
                     </CardDescription>
                   </CardHeader>
-                  <Form {...socialForm}>
+                  <Form {...form}>
                     <form
-                      onSubmit={socialForm.handleSubmit(
-                        onSocialInformationSubmit
-                      )}
+                      onSubmit={form.handleSubmit(onSocialInformationSubmit)}
                       className="space-y-8"
                     >
                       <CardContent className="grid gap-4">
                         <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-2">
                           <div className="grid gap-2 ">
                             <FormField
-                              control={socialForm.control}
+                              control={form.control}
                               name="linkedin"
                               render={({ field }) => (
                                 <FormItem>
@@ -624,7 +621,7 @@ export default function Profile({ userData }) {
                           </div>
                           <div className="grid gap-2 ">
                             <FormField
-                              control={socialForm.control}
+                              control={form.control}
                               name="facebook"
                               render={({ field }) => (
                                 <FormItem>
@@ -645,7 +642,7 @@ export default function Profile({ userData }) {
                           </div>
                           <div className="grid gap-2 ">
                             <FormField
-                              control={socialForm.control}
+                              control={form.control}
                               name="instagram"
                               render={({ field }) => (
                                 <FormItem>
@@ -666,7 +663,7 @@ export default function Profile({ userData }) {
                           </div>
                           <div className="grid gap-2 ">
                             <FormField
-                              control={socialForm.control}
+                              control={form.control}
                               name="whatsapp"
                               render={({ field }) => (
                                 <FormItem>
@@ -687,7 +684,7 @@ export default function Profile({ userData }) {
                           </div>
                           <div className="grid gap-2 ">
                             <FormField
-                              control={socialForm.control}
+                              control={form.control}
                               name="telegram"
                               render={({ field }) => (
                                 <FormItem>
@@ -708,7 +705,7 @@ export default function Profile({ userData }) {
                           </div>
                           <div className="grid gap-2 ">
                             <FormField
-                              control={socialForm.control}
+                              control={form.control}
                               name="twitter"
                               render={({ field }) => (
                                 <FormItem>
