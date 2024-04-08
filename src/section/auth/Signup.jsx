@@ -33,7 +33,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "@/slices/userSlice";
 
 export function Signup() {
@@ -290,6 +290,17 @@ export function Signup() {
                     </FormItem>
                   )}
                 />
+              </div>
+              <div>
+                <span className="text-gray-400 text-sm">
+                  Already have an account?
+                </span>
+                <Link
+                  to="/login"
+                  className="text-gray-400 text-sm font-semibold"
+                >
+                  Sign in
+                </Link>
               </div>
             </CardContent>
             <CardFooter>

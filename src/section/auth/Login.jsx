@@ -38,7 +38,7 @@ import {
 } from "@/components/ui/input-otp";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "@/slices/userSlice";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -137,21 +137,34 @@ export function Login() {
                     <FormItem>
                       <FormLabel htmlFor="password">Password</FormLabel>
                       <FormControl>
-                        <Input
-                          id="password"
-                          type="password"
-                          {...field}
-                        />
+                        <Input id="password" type="password" {...field} />
                       </FormControl>
                     </FormItem>
                   )}
                 />
               </div>
+              <Link
+                className="inline-block align-baseline text-sm text-gray-600 hover:text-gray-800"
+                to="/forgot"
+              >
+                Forgot Password?
+              </Link>
             </CardContent>
-            <CardFooter>
+            <CardFooter className="flex flex-col gap-2">
               <Button type="submit" className="w-full">
                 Login
               </Button>
+              <div>
+                <Link
+                  to="/signup"
+                  className="text-gray-400 text-sm font-semibold"
+                >
+                  <span className="text-gray-400 text-sm font-normal">
+                   Not a Member? 
+                  </span>
+                  Sign up
+                </Link>
+              </div>
             </CardFooter>
           </form>
         </Form>
