@@ -35,10 +35,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "@/slices/userSlice";
+import { useParams } from "react-router-dom";
 
 export function Signup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { referId } = useParams();
+
 
   const { isCreated, userData, error } = useSelector(
     (state) => state.userCustom
@@ -69,7 +72,7 @@ export function Signup() {
       password: "",
       cPassword: "",
       mobileNo: "",
-      referralId: "",
+      referralId: referId || "",
       userType: "",
     },
   });

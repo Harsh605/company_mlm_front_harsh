@@ -64,6 +64,16 @@ function App() {
               }
             />
             <Route
+              path="signup/:referId"
+              element={
+                isAuthenticated ? (
+                  <Navigate to="/admin/dashboard" />
+                ) : (
+                  <Signup />
+                )
+              }
+            />
+            <Route
               path="login"
               element={
                 isAuthenticated ? <Navigate to="/admin/dashboard" /> : <Login />

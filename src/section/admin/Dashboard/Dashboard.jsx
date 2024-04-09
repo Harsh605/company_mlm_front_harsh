@@ -23,7 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 // }
 
 export default function DashboardPage({ userData }) {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   return (
     <>
@@ -37,7 +37,7 @@ export default function DashboardPage({ userData }) {
               {/* <CalendarDateRangePicker /> */}
               <Button
                 onClick={
-                  !(userData?.isEmailVerified) &&
+                  !userData?.isEmailVerified &&
                   (() =>
                     dispatch(verifyUserSendOtp({ email: userData?.email })))
                 }
@@ -47,16 +47,23 @@ export default function DashboardPage({ userData }) {
               </Button>
             </div>
           </div>
-          <Tabs defaultValue="overview" className="space-y-4">
-            <TabsList>
-              <TabsTrigger value="overview">Overview</TabsTrigger>
-              <TabsTrigger value="analytics" disabled>
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="reports" disabled>
-                Reports
-              </TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="overview" className="space-y-4 ">
+            <div className="flex justify-between">
+              <TabsList>
+                <TabsTrigger value="overview">Overview</TabsTrigger>
+                <TabsTrigger value="analytics" disabled>
+                  Analytics
+                </TabsTrigger>
+                <TabsTrigger value="reports" disabled>
+                  Reports
+                </TabsTrigger>
+              </TabsList>
+              <Button variant="default">
+                <a href={`whatsapp://send?text=https://affiliate.metablocktechnologies.org/signup/${userData?._id}`}>
+                  Refer<i className="ml-2 fas fa-share"></i>
+                </a>
+              </Button>
+            </div>
             <TabsContent value="overview" className="space-y-4">
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
                 <Card>

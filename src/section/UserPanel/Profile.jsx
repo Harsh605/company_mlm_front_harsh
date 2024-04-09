@@ -66,6 +66,7 @@ export default function Profile({ userData }) {
     userId: z.number().optional(),
     referralId: z.string().optional(),
     referralName: z.string().optional(),
+    referralCode: z.string().optional(),
     joiningDate: z.string().optional(),
 
     linkedin: z.string().optional(),
@@ -74,6 +75,7 @@ export default function Profile({ userData }) {
     whatsapp: z.string().optional(),
     telegram: z.string().optional(),
     twitter: z.string().optional(),
+
   });
 
   const form = useForm({
@@ -87,6 +89,7 @@ export default function Profile({ userData }) {
       address: userData?.address || "",
       // avatar: userData?.avatar || "",
       userId: userData?.userId || "",
+      referralCode: userData?._id || "",
       referralId: userData?.parentId || "",
       referralName: userData?.parentName || "",
       joiningDate: (userData?.createdAt).slice(0, 10) || "",
@@ -328,6 +331,28 @@ export default function Profile({ userData }) {
                                       id="joiningDate"
                                       type="text"
                                       placeholder="dd/mm/yyyy"
+                                      disabled
+                                      {...field}
+                                    />
+                                  </FormControl>
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                          <div className="grid gap-2 ">
+                            <FormField
+                              control={form.control}
+                              name="referralCode"
+                              render={({ field }) => (
+                                <FormItem>
+                                  <FormLabel htmlFor="referralCode">
+                                    Referral Code
+                                  </FormLabel>
+                                  <FormControl>
+                                    <Input
+                                      id="referralCode"
+                                      type="text"
+                                      placeholder="Referral Code"
                                       disabled
                                       {...field}
                                     />
